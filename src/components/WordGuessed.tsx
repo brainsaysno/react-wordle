@@ -60,12 +60,13 @@ const LetterBox = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 5vw;
-  width: 5vw;
+  height: 5rem;
+  width: 5rem;
   border: 1px solid gray;
   color: white;
   text-transform: uppercase;
   font-weight: bold;
+  font-size: 1.5rem;
 `;
 
 const CorrectBox = styled(LetterBox)`

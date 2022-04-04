@@ -33,7 +33,7 @@ function GameController(): JSX.Element {
   }, [guesses]);
 
   return (
-    <>
+    <GameArea>
       <WordArea>{guessesElements}</WordArea>
 
       <GuessArea>
@@ -42,11 +42,21 @@ function GameController(): JSX.Element {
 
       <br />
       <button onClick={() => setGuesses([])}>Clear</button>
-    </>
+    </GameArea>
   );
 }
 
 export default GameController;
+
+const GameArea = styled.div`
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 const WordArea = styled.div`
   display: flex;
