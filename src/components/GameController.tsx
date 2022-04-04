@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import GuessInput from "./GuessInput";
 import WordGuessed from "./WordGuessed";
+import GameSettings from "../GameSettings";
 
 function GameController(): JSX.Element {
   const totalTries = 6;
-  const targetWord: string = "train";
   const [guesses, setGuesses] = React.useState<string[]>([]);
   const [guessesElements, setGuessesElements] = React.useState<JSX.Element[]>(
     []
@@ -14,14 +14,14 @@ function GameController(): JSX.Element {
 
   const handleGuess = (newGuess: string): void => {
     if (
-      newGuess.length === targetWord.length &&
+      newGuess.length === GameSettings.targetWord.length &&
       !guesses.includes(newGuess) &&
       guesses.length < totalTries
     ) {
       setGuesses([...guesses, newGuess]);
     }
     // Win condition
-    if (newGuess === targetWord) {
+    if (newGuess === GameSettings.targetWord) {
       setIsPlaying(false);
     }
   };
@@ -34,10 +34,10 @@ function GameController(): JSX.Element {
   useEffect(() => {
     console.log(guesses);
     const newGuessesElements = guesses.map((guess, i) => (
-      <WordGuessed key={i} guessedWord={guess} targetWord={targetWord} />
+      <WordGuessed key={i} guessedWord={guess} />
     ));
     for (let i = guesses.length; i < totalTries; i++) {
-      newGuessesElements.push(<WordGuessed key={i} targetWord={targetWord} />);
+      newGuessesElements.push(<WordGuessed key={i} />);
     }
     setGuessesElements(newGuessesElements);
   }, [guesses]);
@@ -47,11 +47,7 @@ function GameController(): JSX.Element {
       <WordArea>{guessesElements}</WordArea>
 
       <GuessArea>
-        <GuessInput
-          onInput={handleGuess}
-          wordLength={5}
-          disabled={!isPlaying}
-        />
+        <GuessInput onInput={handleGuess} disabled={!isPlaying} />
       </GuessArea>
 
       <br />

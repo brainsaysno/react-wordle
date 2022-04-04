@@ -1,12 +1,12 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
+import GameSettings from "../GameSettings";
 
 interface Props {
   onInput: (newGuess: string) => void;
-  wordLength: number;
   disabled: boolean;
 }
 
-function GuessInput({ onInput, wordLength, disabled }: Props) {
+function GuessInput({ onInput, disabled }: Props) {
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -26,7 +26,7 @@ function GuessInput({ onInput, wordLength, disabled }: Props) {
           type="text"
           value={inputValue}
           onChange={handleInputChange}
-          maxLength={wordLength}
+          maxLength={GameSettings.wordLength}
           disabled={disabled}
         />
       </form>

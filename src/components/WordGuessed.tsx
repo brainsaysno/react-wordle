@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import GameSettings from "../GameSettings";
 
 interface FilledProps {
   guessedWord?: string;
-  targetWord: string;
 }
 
-function WordGuessed({ guessedWord, targetWord }: FilledProps): JSX.Element {
+function WordGuessed({ guessedWord }: FilledProps): JSX.Element {
   enum Accuracy {
     Incorrect = 0,
     OutOfPlace = 1,
@@ -18,10 +18,10 @@ function WordGuessed({ guessedWord, targetWord }: FilledProps): JSX.Element {
   if (guessedWord) {
     const accuracy: Accuracy[] = [];
 
-    for (let i = 0; i < targetWord.length; i++) {
-      if (guessedWord[i] === targetWord[i]) {
+    for (let i = 0; i < GameSettings.targetWord.length; i++) {
+      if (guessedWord[i] === GameSettings.targetWord[i]) {
         accuracy.push(Accuracy.Correct);
-      } else if (targetWord.includes(guessedWord[i])) {
+      } else if (GameSettings.targetWord.includes(guessedWord[i])) {
         accuracy.push(Accuracy.OutOfPlace);
       } else {
         accuracy.push(Accuracy.Incorrect);
@@ -37,7 +37,9 @@ function WordGuessed({ guessedWord, targetWord }: FilledProps): JSX.Element {
       return <LetterElement key={i}>{guessedWord[i]}</LetterElement>;
     });
   } else {
-    letterElements = Array(targetWord.length).fill(<IncorrectBox />);
+    letterElements = Array(GameSettings.targetWord.length).fill(
+      <IncorrectBox />
+    );
   }
 
   return <WordContainer>{letterElements}</WordContainer>;
