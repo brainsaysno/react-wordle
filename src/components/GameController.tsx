@@ -10,6 +10,7 @@ function GameController(): JSX.Element {
   const [guessesElements, setGuessesElements] = React.useState<JSX.Element[]>(
     []
   );
+  const [isPlaying, setIsPlaying] = React.useState<boolean>(true);
 
   const handleGuess = (newGuess: string): void => {
     if (
@@ -19,6 +20,15 @@ function GameController(): JSX.Element {
     ) {
       setGuesses([...guesses, newGuess]);
     }
+    // Win condition
+    if (newGuess === targetWord) {
+      setIsPlaying(false);
+    }
+  };
+
+  const handleReset = () => {
+    setGuesses([]);
+    setIsPlaying(true);
   };
 
   useEffect(() => {
@@ -37,11 +47,15 @@ function GameController(): JSX.Element {
       <WordArea>{guessesElements}</WordArea>
 
       <GuessArea>
-        <GuessInput onInput={handleGuess} wordLength={5} />
+        <GuessInput
+          onInput={handleGuess}
+          wordLength={5}
+          disabled={!isPlaying}
+        />
       </GuessArea>
 
       <br />
-      <button onClick={() => setGuesses([])}>Clear</button>
+      <button onClick={handleReset}>Reset game</button>
     </GameArea>
   );
 }

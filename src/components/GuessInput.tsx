@@ -3,9 +3,10 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 interface Props {
   onInput: (newGuess: string) => void;
   wordLength: number;
+  disabled: boolean;
 }
 
-function GuessInput({ onInput, wordLength }: Props) {
+function GuessInput({ onInput, wordLength, disabled }: Props) {
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -26,6 +27,7 @@ function GuessInput({ onInput, wordLength }: Props) {
           value={inputValue}
           onChange={handleInputChange}
           maxLength={wordLength}
+          disabled={disabled}
         />
       </form>
     </>
