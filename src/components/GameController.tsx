@@ -4,6 +4,8 @@ import GuessInput from "./GuessInput";
 import WordGuessed from "./WordGuessed";
 import GameSettings from "../GameSettings";
 import Dictionary from "../Dictionary";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 function GameController(): JSX.Element {
   const [guesses, setGuesses] = React.useState<string[]>([]);
@@ -22,7 +24,16 @@ function GameController(): JSX.Element {
     }
     // Win condition
     if (newGuess === GameSettings.targetWord) {
+      toast.success("You win!");
       setIsPlaying(false);
+    }
+    // Lose condition
+    if (guesses.length === GameSettings.totalTries - 1) {
+      toast.error(
+        `You lose... The correct word was ${GameSettings.targetWord.toUpperCase()}`
+      );
+      setIsPlaying(false);
+      // Create toast with message and correct word
     }
   };
 
@@ -33,7 +44,7 @@ function GameController(): JSX.Element {
   };
 
   useEffect(() => {
-    console.log(guesses);
+    console.log(GameSettings.targetWord);
     const newGuessesElements = guesses.map((guess, i) => (
       <WordGuessed key={i} guessedWord={guess} />
     ));
@@ -44,16 +55,19 @@ function GameController(): JSX.Element {
   }, [guesses]);
 
   return (
-    <GameArea>
-      <WordArea>{guessesElements}</WordArea>
+    <>
+      <GameArea>
+        <WordArea>{guessesElements}</WordArea>
 
-      <GuessArea>
-        <GuessInput onInput={handleGuess} disabled={!isPlaying} />
-      </GuessArea>
+        <GuessArea>
+          <GuessInput onInput={handleGuess} disabled={!isPlaying} />
+        </GuessArea>
 
-      <br />
-      <button onClick={handleReset}>Reset game</button>
-    </GameArea>
+        <br />
+        <button onClick={handleReset}>Reset game</button>
+      </GameArea>
+      <ToastContainer />
+    </>
   );
 }
 

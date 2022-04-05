@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import Dictionary from "../Dictionary";
 import GameSettings from "../GameSettings";
 
 interface Props {
