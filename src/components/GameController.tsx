@@ -3,6 +3,7 @@ import styled from "styled-components";
 import GuessInput from "./GuessInput";
 import WordGuessed from "./WordGuessed";
 import GameSettings from "../GameSettings";
+import Dictionary from "../Dictionary";
 
 function GameController(): JSX.Element {
   const totalTries = 6;
@@ -27,6 +28,7 @@ function GameController(): JSX.Element {
   };
 
   const handleReset = () => {
+    GameSettings.targetWord = Dictionary.getWord(GameSettings.wordLength);
     setGuesses([]);
     setIsPlaying(true);
   };

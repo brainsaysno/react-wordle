@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
+import Dictionary from "../Dictionary";
 import GameSettings from "../GameSettings";
 
 interface Props {
@@ -11,6 +12,7 @@ function GuessInput({ onInput, disabled }: Props) {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setInputValue(e.target.value);
+    console.log(Dictionary.getWord(4));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
