@@ -6,7 +6,6 @@ import GameSettings from "../GameSettings";
 import Dictionary from "../Dictionary";
 
 function GameController(): JSX.Element {
-  const totalTries = 6;
   const [guesses, setGuesses] = React.useState<string[]>([]);
   const [guessesElements, setGuessesElements] = React.useState<JSX.Element[]>(
     []
@@ -17,7 +16,7 @@ function GameController(): JSX.Element {
     if (
       newGuess.length === GameSettings.targetWord.length &&
       !guesses.includes(newGuess) &&
-      guesses.length < totalTries
+      guesses.length < GameSettings.totalTries
     ) {
       setGuesses([...guesses, newGuess]);
     }
@@ -38,7 +37,7 @@ function GameController(): JSX.Element {
     const newGuessesElements = guesses.map((guess, i) => (
       <WordGuessed key={i} guessedWord={guess} />
     ));
-    for (let i = guesses.length; i < totalTries; i++) {
+    for (let i = guesses.length; i < GameSettings.totalTries; i++) {
       newGuessesElements.push(<WordGuessed key={i} />);
     }
     setGuessesElements(newGuessesElements);

@@ -1,3 +1,5 @@
+import Dictionary from "./Dictionary";
+
 interface GameSettingsInterface {
   targetWord: string;
   wordLength: number;
@@ -5,7 +7,7 @@ interface GameSettingsInterface {
 }
 
 const GameSettings: GameSettingsInterface = {
-  targetWord: "train",
+  targetWord: Dictionary.getWord(5),
   wordLength: 5,
   totalTries: 6,
 };
